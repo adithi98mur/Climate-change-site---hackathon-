@@ -1,0 +1,84 @@
+import wixData from 'wix-data';
+
+$w.onReady(function () {
+    const regions = [
+        "North America",
+        "South America",
+        "Africa",
+        "Asia",
+        "Antarctica",
+        "Australia",
+        "Europe"
+    ];
+
+
+    $w('#regionDropdown').options = regions.map(region => {
+        return { label: region, value: region };
+    });
+
+    $w('#regionDropdown').onChange(() => {
+        const selectedRegion = $w('#regionDropdown').value;
+        console.log(`Selected Region: ${selectedRegion}`);  
+        loadClimateStats(selectedRegion);
+        displayRegionImage(selectedRegion);
+    });
+});
+
+function loadClimateStats(region) {
+    wixData.query('ClimateStats')
+        .eq('region', region) 
+        .find() 
+        .then((results) => {
+            if (results.items.length > 0) {
+                const stats = results.items[0];
+                console.log(`Data found: ${JSON.stringify(stats)}`); 
+                $w('#statsText').text = `Region: ${stats.region}
+Temperature Increase: ${stats.temperatureIncrease}°C
+Sea Level Rise: ${stats.seaLevelRise} mm`;
+            } else {
+                console.log('No data found for this region');
+                $w('#statsText').text = 'No data available for this region.';
+            }
+        })
+        .catch((error) => {
+            console.error('Error retrieving data:', error); 
+            $w('#statsText').text = 'Error loading data.';
+        });
+}
+function displayRegionImage(region) {
+    let imageUrl = ''; 
+
+    switch (region) {
+        case 'North America':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_4cca304fdb874f4e8ebb61c2bf46c781~mv2.jpg';
+            break;
+        case 'South America':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_aca6b8f9ba9e4d109733285530cd8352~mv2.jpg';
+            break;
+        case 'Africa':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_9fc96e23135443a7a93b93f7a3f7d8fb~mv2.jpg';
+            break;
+        case 'Asia':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_1f8f6f9707734b9bb1644eddefd5940a~mv2.jpg';
+            break;
+        case 'Antarctica':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_516132ea02ab4e22903069bcac82241d~mv2.jpg';
+            break;
+        case 'Australia':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_e300f10808974d6bbf4428ed02a53f02~mv2.webp';
+            break;
+        case 'Europe':
+            imageUrl = 'https://static.wixstatic.com/media/13ea4e_7f8e2bc62f27404c89a416591c434200~mv2.webp';
+            break;
+        default:
+            imageUrl = '';  
+            break;
+    }
+    
+    if (imageUrl) {
+        $w('#regionImage').src = imageUrl;
+    } else {
+        // Hide the image if no URL is available
+        $w('#regionImage').hide();
+    }
+}
