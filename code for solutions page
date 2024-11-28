@@ -1,0 +1,109 @@
+$w.onReady(function () {
+    // Define the solutions for the dropdown
+    const solutions = [
+        { label: "Use Clean Energy", value: "cleanEnergy" },
+        { label: "Save Energy", value: "saveEnergy" },
+        { label: "Use Public Transport", value: "publicTransport" },
+        { label: "Plant Trees", value: "plantTrees" },
+        { label: "Reduce Waste", value: "reduceWaste" },
+        { label: "Farm Sustainably", value: "farmSustainably" },
+        { label: "Save Water", value: "saveWater" },
+        { label: "Learn and Teach Others", value: "learnTeach" },
+        { label: "Support Climate-Friendly Policies", value: "climatePolicies" }
+    ];
+
+    // Set the options for the dropdown
+    $w('#solutionsDropdown').options = solutions;
+
+    // Add an event listener for dropdown change
+    $w('#solutionsDropdown').onChange(() => {
+        const selectedSolution = $w('#solutionsDropdown').value;
+        console.log(`Selected Solution: ${selectedSolution}`);
+
+        // Call the function to display the solution details
+        displaySolutionDetails(selectedSolution);
+    });
+});
+
+// Function to display details of the selected solution
+function displaySolutionDetails(solution) {
+    let details = '';
+
+    switch (solution) {
+    case 'cleanEnergy':
+        details = `
+                Transitioning to renewable energy sources like solar, wind, and hydropower is essential for reducing greenhouse gas emissions. 
+                Unlike fossil fuels, these energy sources do not contribute to air pollution or climate change. 
+                Installing solar panels, supporting wind farms, and encouraging water-based energy production in your community 
+                can significantly lower the carbon footprint of energy consumption.
+            `;
+        break;
+    case 'saveEnergy':
+        details = `
+                Being mindful of energy use is one of the simplest and most effective ways to combat climate change. 
+                Replace incandescent bulbs with energy-efficient LED lights, insulate your home to prevent heat loss, 
+                and unplug electronics when they are not in use. Additionally, utilizing programmable thermostats to manage heating and cooling efficiently 
+                can cut down on unnecessary energy waste. These small steps collectively contribute to a significant reduction in overall energy demand.
+            `;
+        break;
+    case 'publicTransport':
+        details = `
+                Reducing the number of vehicles on the road is crucial for lowering emissions and reducing air pollution. 
+                Public transport, such as buses, trains, and trams, offers a more energy-efficient alternative to driving alone. 
+                Whenever possible, opt for walking or biking, both of which reduce your carbon footprint and promote a healthier lifestyle. 
+                If public transport options are limited, consider carpooling to help reduce the number of cars on the road.
+            `;
+        break;
+    case 'plantTrees':
+        details = `
+                Trees play a vital role in the fight against climate change by absorbing carbon dioxide during photosynthesis. 
+                Planting trees in urban areas, along roadsides, and in deforested regions can significantly improve air quality and help mitigate the effects of global warming. 
+                Additionally, trees provide shade, reduce the urban heat island effect, and support biodiversity by providing habitat for wildlife.
+            `;
+        break;
+    case 'reduceWaste':
+        details = `
+                Waste management is a critical part of sustainability. Recycling materials like paper, plastic, and glass reduces the need for new resources, 
+                which in turn reduces energy consumption and pollution. Reusing items, buying products with minimal packaging, and cutting down on single-use plastics 
+                can significantly reduce the strain on landfills and decrease the pollution that harms ecosystems. Composting organic waste also helps reduce landfill use 
+                and produces nutrient-rich soil for gardening.
+            `;
+        break;
+    case 'farmSustainably':
+        details = `
+                Sustainable farming practices focus on reducing the environmental impact of agriculture while maintaining food production. 
+                Support local farmers who use organic methods, avoid harmful chemicals, and focus on soil health through crop rotation, composting, and minimal tillage. 
+                Sustainable farming practices not only protect the environment but also promote healthier food systems and stronger local economies.
+            `;
+        break;
+    case 'saveWater':
+        details = `
+                Water conservation is a key factor in protecting the planet's resources. Simple actions like fixing leaky faucets, taking shorter showers, 
+                and installing low-flow fixtures in your home can save gallons of water every day. Using water-efficient appliances and landscaping with drought-resistant plants 
+                further minimizes water waste. Conserving water helps preserve aquatic ecosystems, supports agriculture, and ensures a sustainable water supply for future generations.
+            `;
+        break;
+    case 'learnTeach':
+        details = `
+                Knowledge is power when it comes to addressing climate change. Take the time to educate yourself about the science of global warming, its impacts, 
+                and the steps individuals can take to mitigate it. Share this knowledge with friends, family, and colleagues to spread awareness and inspire action. 
+                Encourage others to take sustainable steps in their own lives, whether it’s through simple habits or larger lifestyle changes. 
+                By teaching others, you multiply the positive impact on the environment.
+            `;
+        break;
+    case 'climatePolicies':
+        details = `
+                Policies play a crucial role in combating climate change on a large scale. Advocate for laws and regulations that promote the use of renewable energy, 
+                reduce carbon emissions, protect natural resources, and encourage sustainable practices. Support leaders who prioritize environmental protection 
+                and work to create a cleaner, healthier planet. Participate in local climate initiatives, vote for politicians committed to climate action, 
+                and join or support organizations dedicated to environmental causes.
+            `;
+        break;
+    default:
+        details = "Please select a solution to learn more.";
+        break;
+    }
+
+    // Display the details in a text element on your page
+    $w('#solutionDetailsText').text = details;
+}
